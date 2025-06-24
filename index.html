@@ -9,11 +9,12 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      color: #000080;
     }
 
     .container {
       width: 900px;
-      margin: 0 auto;
+      margin: 20px auto;
       background-color: #ffffff;
       border: 2px solid #000080;
       box-shadow: 5px 5px 10px #999;
@@ -25,6 +26,8 @@
       padding: 10px;
       font-size: 24px;
       text-align: center;
+      font-weight: bold;
+      text-shadow: 1px 1px #333;
     }
 
     .menu {
@@ -34,29 +37,44 @@
       font-weight: bold;
     }
 
-    .menu a {
-      margin: 0 15px;
-      color: #000080;
-      text-decoration: none;
-    }
-
-    .menu a:hover {
-      color: red;
-    }
-
-    .forum-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .forum-table th,
-    .forum-table td {
-      padding: 10px;
-      border: 1px solid #999;
-    }
-
-    .forum-table th {
+    .menu button {
+      margin: 0 10px;
+      padding: 6px 12px;
       background-color: #dcdcdc;
+      border: 2px outset #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .menu button:hover {
+      background-color: #c0c0c0;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .forum-topic {
+      border: 1px solid #aaa;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+    }
+
+    textarea, input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin: 6px 0;
+      border: 1px solid #aaa;
+      font-size: 14px;
     }
 
     .footer {
@@ -64,49 +82,95 @@
       background-color: #eeeeee;
       padding: 10px;
       font-size: 12px;
+      border-top: 1px solid #ccc;
     }
 
-    .button {
-      padding: 6px 12px;
-      background-color: #dcdcdc;
-      border: 2px outset #fff;
-      font-weight: bold;
+    .button-small {
+      padding: 4px 8px;
+      font-size: 12px;
       cursor: pointer;
+      background-color: #e0e0e0;
+      border: 1px solid #999;
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <div class="header">Retro Forum</div>
+  <div class="header">Retro Forum Sitesine Hoş Geldiniz!</div>
 
   <div class="menu">
-    <a href="index.html">Anasayfa</a>
-    <a href="new-topic.html">Yeni Konu Aç</a>
+    <button onclick="showSection('home')">🏠 Anasayfa</button>
+    <button onclick="showSection('topics')">📄 Tüm Konular</button>
+    <button onclick="showSection('new')">📝 Yeni Konu Aç</button>
   </div>
 
-  <table class="forum-table">
-    <tr>
-      <th>Forum Başlığı</th>
-      <th>Konular</th>
-      <th>Son Mesaj</th>
-    </tr>
-    <tr>
-      <td><a href="forum-view.html">Genel Sohbet</a></td>
-      <td>25</td>
-      <td>Emirhan - 24.06.2025</td>
-    </tr>
-    <tr>
-      <td><a href="forum-view.html">Teknoloji</a></td>
-      <td>14</td>
-      <td>admin - 23.06.2025</td>
-    </tr>
-  </table>
+  <div class="content">
+    <div id="home" class="section active">
+      <h2>📌 Hoş Geldin!</h2>
+      <p>Bu forum, 2000'lerin başındaki kişisel siteleri ve eski tarz forumları yaşatmak için tasarlandı.</p>
+      <p><strong>Kayıt, üyelik gerekmez. Direkt katıl!</strong></p>
+    </div>
+
+    <div id="topics" class="section">
+      <h2>📄 Konular</h2>
+      <div id="topicList">
+        <div class="forum-topic">
+          <strong>Emirhan:</strong> Merhaba arkadaşlar! Bu forum çok nostaljik olmuş!
+        </div>
+        <div class="forum-topic">
+          <strong>Can:</strong> Ben de yeni geldim, bu tarzı çok özlemişim!
+        </div>
+      </div>
+    </div>
+
+    <div id="new" class="section">
+      <h2>📝 Yeni Konu Aç</h2>
+      <form onsubmit="event.preventDefault(); addTopic();">
+        <label>Adınız:</label>
+        <input type="text" id="username" required>
+
+        <label>Mesajınız:</label>
+        <textarea id="message" required></textarea>
+
+        <button class="button-small">Gönder</button>
+      </form>
+    </div>
+  </div>
 
   <div class="footer">
-    &copy; 2025 Retro Forum - Tüm hakları saklıdır.
+    &copy; 2025 Retro Forum. Tüm hakları saklıdır.
   </div>
 </div>
+
+<script>
+  function showSection(id) {
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(sec => sec.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function addTopic() {
+    const username = document.getElementById('username').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (username && message) {
+      const topicHTML = `
+        <div class="forum-topic">
+          <strong>${username}:</strong> ${message}
+        </div>
+      `;
+      document.getElementById('topicList').innerHTML += topicHTML;
+
+      // Geri anasayfaya dön
+      document.getElementById('username').value = '';
+      document.getElementById('message').value = '';
+      showSection('topics');
+    } else {
+      alert("Lütfen tüm alanları doldurun.");
+    }
+  }
+</script>
 
 </body>
 </html>
