@@ -3,14 +3,20 @@ header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
-const API_URL = 'https://heirass.github.io/index.html';
 
-// OPTIONS isteğini handle et (CORS için)
+// Handle OPTIONS request for CORS preflight
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
+const API_URL = 'https://heirass.github.io/index.html';
+
+// Your remaining code for handling GET, POST, etc.
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 $messagesFile = 'forum_messages.json';
 
 // Dosya yoksa boş array ile oluştur
