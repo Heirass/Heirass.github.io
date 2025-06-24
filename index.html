@@ -2,95 +2,257 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Retro Forum</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retro Forum - 2000'lerin Nostaljisi</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       background: linear-gradient(to bottom, #c0c0c0, #ffffff);
-      font-family: Arial, sans-serif;
+      font-family: 'MS Sans Serif', Arial, sans-serif;
       margin: 0;
-      padding: 0;
+      padding: 20px;
       color: #000080;
+      min-height: 100vh;
     }
 
     .container {
-      width: 900px;
-      margin: 20px auto;
+      max-width: 900px;
+      margin: 0 auto;
       background-color: #ffffff;
       border: 2px solid #000080;
-      box-shadow: 5px 5px 10px #999;
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
     }
 
     .header {
-      background-color: #000080;
+      background: linear-gradient(to bottom, #4169E1, #000080);
       color: white;
-      padding: 10px;
+      padding: 15px;
       font-size: 24px;
       text-align: center;
       font-weight: bold;
-      text-shadow: 1px 1px #333;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      border-bottom: 2px solid #FFD700;
+    }
+
+    .header::before {
+      content: "🌐 ";
+      font-size: 28px;
     }
 
     .menu {
-      background-color: #f0f0f0;
-      padding: 10px;
+      background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
+      padding: 12px;
       text-align: center;
-      font-weight: bold;
+      border-bottom: 1px solid #ccc;
     }
 
     .menu button {
-      margin: 0 10px;
-      padding: 6px 12px;
-      background-color: #dcdcdc;
+      margin: 0 8px;
+      padding: 8px 16px;
+      background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
       border: 2px outset #fff;
       font-weight: bold;
       cursor: pointer;
+      font-size: 14px;
+      border-radius: 2px;
+      transition: all 0.2s ease;
     }
 
     .menu button:hover {
-      background-color: #c0c0c0;
+      background: linear-gradient(to bottom, #e0e0e0, #c0c0c0);
+      transform: translateY(1px);
+    }
+
+    .menu button:active {
+      border: 2px inset #fff;
+      transform: translateY(2px);
+    }
+
+    .menu button.active {
+      background: linear-gradient(to bottom, #FFD700, #FFA500);
+      color: #000080;
+      font-weight: bold;
     }
 
     .content {
-      padding: 20px;
+      padding: 25px;
+      min-height: 400px;
     }
 
     .section {
       display: none;
+      animation: fadeIn 0.3s ease-in;
     }
 
     .section.active {
       display: block;
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .forum-topic {
       border: 1px solid #aaa;
-      padding: 10px;
-      margin-bottom: 10px;
-      background-color: #f9f9f9;
+      padding: 15px;
+      margin-bottom: 12px;
+      background: linear-gradient(to bottom, #ffffff, #f9f9f9);
+      border-radius: 3px;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .forum-topic:hover {
+      transform: translateX(5px);
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .forum-topic strong {
+      color: #8B0000;
+      font-size: 16px;
+    }
+
+    .forum-topic .timestamp {
+      color: #666;
+      font-size: 11px;
+      float: right;
+      font-style: italic;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #000080;
     }
 
     textarea, input[type="text"] {
       width: 100%;
-      padding: 8px;
-      margin: 6px 0;
-      border: 1px solid #aaa;
+      padding: 10px;
+      border: 2px inset #ccc;
       font-size: 14px;
+      font-family: inherit;
+      border-radius: 2px;
+      background-color: #ffffff;
+    }
+
+    textarea:focus, input[type="text"]:focus {
+      outline: none;
+      border-color: #4169E1;
+      box-shadow: 0 0 5px rgba(65, 105, 225, 0.3);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
     }
 
     .footer {
       text-align: center;
-      background-color: #eeeeee;
-      padding: 10px;
+      background: linear-gradient(to bottom, #eeeeee, #ddd);
+      padding: 12px;
       font-size: 12px;
-      border-top: 1px solid #ccc;
+      border-top: 2px solid #ccc;
+      color: #666;
     }
 
-    .button-small {
-      padding: 4px 8px;
-      font-size: 12px;
+    .button-submit {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
       cursor: pointer;
-      background-color: #e0e0e0;
-      border: 1px solid #999;
+      background: linear-gradient(to bottom, #32CD32, #228B22);
+      color: white;
+      border: 2px outset #32CD32;
+      border-radius: 3px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .button-submit:hover {
+      background: linear-gradient(to bottom, #228B22, #006400);
+      transform: translateY(1px);
+    }
+
+    .button-submit:active {
+      border: 2px inset #32CD32;
+      transform: translateY(2px);
+    }
+
+    .welcome-stats {
+      background: linear-gradient(to right, #F0F8FF, #E6E6FA);
+      border: 1px solid #9370DB;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .online-users {
+      color: #228B22;
+      font-weight: bold;
+    }
+
+    .topic-counter {
+      background: #FFE4E1;
+      padding: 8px;
+      border-radius: 3px;
+      margin-bottom: 15px;
+      text-align: center;
+      font-weight: bold;
+      color: #8B0000;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: #666;
+      font-style: italic;
+      padding: 40px;
+      background: #f9f9f9;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
+      .container {
+        border-radius: 0;
+      }
+      
+      .header {
+        font-size: 20px;
+        padding: 12px;
+      }
+      
+      .menu button {
+        margin: 2px;
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      
+      .content {
+        padding: 15px;
+      }
+    }
+
+    .blink {
+      animation: blink 1.5s linear infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
     }
   </style>
 </head>
@@ -100,76 +262,270 @@
   <div class="header">Retro Forum Sitesine Hoş Geldiniz!</div>
 
   <div class="menu">
-    <button onclick="showSection('home')">🏠 Anasayfa</button>
-    <button onclick="showSection('topics')">📄 Tüm Konular</button>
-    <button onclick="showSection('new')">📝 Yeni Konu Aç</button>
+    <button id="homeBtn" class="active" onclick="showSection('home')">🏠 Anasayfa</button>
+    <button id="topicsBtn" onclick="showSection('topics')">📄 Tüm Konular</button>
+    <button id="newBtn" onclick="showSection('new')">📝 Yeni Konu Aç</button>
   </div>
 
   <div class="content">
     <div id="home" class="section active">
-      <h2>📌 Hoş Geldin!</h2>
-      <p>Bu forum, 2000'lerin başındaki kişisel siteleri ve eski tarz forumları yaşatmak için tasarlandı.</p>
-      <p><strong>Kayıt, üyelik gerekmez. Direkt katıl!</strong></p>
+      <h2>📌 Hoş Geldin Nostaljik Dünyaya!</h2>
+      <p>Bu forum, 2000'lerin başındaki kişisel siteleri ve eski tarz forumları yaşatmak için özenle tasarlandı. Burada eskinin sıcaklığını bulacaksın!</p>
+      
+      <div class="welcome-stats">
+        <p><strong>🎉 Kayıt, üyelik gerekmez. Direkt katıl!</strong></p>
+        <p class="online-users">👥 Şu anda <span class="blink">Online</span>: <span id="onlineCount">1</span> kişi</p>
+        <p>📝 Toplam Konu: <span id="totalTopics">0</span></p>
+      </div>
+      
+      <h3>🔥 Son Aktiviteler</h3>
+      <div id="recentActivity">
+        <div class="empty-state">
+          Henüz hiç mesaj yok. İlk mesajı sen yaz! 🚀
+        </div>
+      </div>
     </div>
 
     <div id="topics" class="section">
-      <h2>📄 Konular</h2>
+      <h2>📄 Tüm Konular</h2>
+      <div class="topic-counter">
+        📊 Toplam <span id="topicCount">0</span> konu bulundu
+      </div>
       <div id="topicList">
-        <div class="forum-topic">
-          <strong>Emirhan:</strong> Merhaba arkadaşlar! Bu forum çok nostaljik olmuş!
-        </div>
-        <div class="forum-topic">
-          <strong>Can:</strong> Ben de yeni geldim, bu tarzı çok özlemişim!
+        <div class="empty-state">
+          Henüz hiç konu açılmamış. İlk konuyu açmak için "Yeni Konu Aç" butonuna tıkla! 📝
         </div>
       </div>
     </div>
 
     <div id="new" class="section">
       <h2>📝 Yeni Konu Aç</h2>
+      <p>Düşüncelerini paylaş, nostaljik anılarını anlat!</p>
+      
       <form onsubmit="event.preventDefault(); addTopic();">
-        <label>Adınız:</label>
-        <input type="text" id="username" required>
+        <div class="form-group">
+          <label for="username">👤 Adınız:</label>
+          <input type="text" id="username" maxlength="20" required placeholder="Kullanıcı adınızı girin...">
+        </div>
 
-        <label>Mesajınız:</label>
-        <textarea id="message" required></textarea>
+        <div class="form-group">
+          <label for="message">💬 Mesajınız:</label>
+          <textarea id="message" maxlength="500" required placeholder="Mesajınızı buraya yazın... (Max 500 karakter)"></textarea>
+          <small>Kalan karakter: <span id="charCount">500</span></small>
+        </div>
 
-        <button class="button-small">Gönder</button>
+        <button type="submit" class="button-submit">🚀 Mesajı Gönder</button>
       </form>
     </div>
   </div>
 
   <div class="footer">
-    &copy; 2025 Retro Forum. Tüm hakları saklıdır.
+    <marquee behavior="scroll" direction="left" scrollamount="3">
+      ⭐ Retro Forum 2025 - Nostaljinin Dijital Adresi ⭐ Tüm hakları saklıdır ⭐
+    </marquee>
   </div>
 </div>
 
 <script>
+  let topicCounter = 0;
+  const API_URL = 'messages.php'; // PHP dosyanızın yolu
+  
   function showSection(id) {
+    // Tüm bölümleri gizle
     const sections = document.querySelectorAll('.section');
     sections.forEach(sec => sec.classList.remove('active'));
+    
+    // Tüm butonlardan active sınıfını kaldır
+    const buttons = document.querySelectorAll('.menu button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    // Seçilen bölümü göster
     document.getElementById(id).classList.add('active');
+    
+    // İlgili butonu aktif yap
+    if (id === 'home') document.getElementById('homeBtn').classList.add('active');
+    else if (id === 'topics') {
+      document.getElementById('topicsBtn').classList.add('active');
+      loadMessages(); // Konular sayfasına geçerken mesajları yükle
+    }
+    else if (id === 'new') document.getElementById('newBtn').classList.add('active');
   }
 
-  function addTopic() {
+  // Backend'den mesajları yükle
+  async function loadMessages() {
+    try {
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      
+      if (data.success && data.messages) {
+        displayMessages(data.messages);
+        updateCounters(data.total);
+        updateRecentActivity(data.messages.slice(0, 3));
+      }
+    } catch (error) {
+      console.error('Mesajlar yüklenirken hata:', error);
+      showError('Mesajlar yüklenirken bir hata oluştu.');
+    }
+  }
+
+  // Mesajları ekranda göster
+  function displayMessages(messages) {
+    const topicList = document.getElementById('topicList');
+    
+    if (messages.length === 0) {
+      topicList.innerHTML = `
+        <div class="empty-state">
+          Henüz hiç konu açılmamış. İlk konuyu açmak için "Yeni Konu Aç" butonuna tıkla! 📝
+        </div>
+      `;
+      return;
+    }
+    
+    topicList.innerHTML = messages.map(msg => `
+      <div class="forum-topic">
+        <strong>${msg.username}:</strong> ${msg.message}
+        <div class="timestamp">${msg.timestamp}</div>
+      </div>
+    `).join('');
+  }
+
+  // Sayaçları güncelle
+  function updateCounters(total) {
+    document.getElementById('topicCount').textContent = total;
+    document.getElementById('totalTopics').textContent = total;
+    topicCounter = total;
+  }
+
+  // Son aktiviteleri güncelle
+  function updateRecentActivity(recentMessages) {
+    const recentActivity = document.getElementById('recentActivity');
+    
+    if (recentMessages.length === 0) {
+      recentActivity.innerHTML = `
+        <div class="empty-state">
+          Henüz hiç mesaj yok. İlk mesajı sen yaz! 🚀
+        </div>
+      `;
+      return;
+    }
+    
+    recentActivity.innerHTML = recentMessages.map(msg => `
+      <div class="forum-topic">
+        <strong>${msg.username}:</strong> ${msg.message}
+        <div class="timestamp">${msg.timestamp}</div>
+      </div>
+    `).join('');
+  }
+
+  // Hata mesajı göster
+  function showError(message) {
+    alert('❌ ' + message);
+  }
+
+  // Başarı mesajı göster
+  function showSuccess(message) {
+    alert('✅ ' + message);
+  }
+  // Yeni mesaj gönder
+  async function addTopic() {
     const username = document.getElementById('username').value.trim();
     const message = document.getElementById('message').value.trim();
 
-    if (username && message) {
-      const topicHTML = `
-        <div class="forum-topic">
-          <strong>${username}:</strong> ${message}
-        </div>
-      `;
-      document.getElementById('topicList').innerHTML += topicHTML;
+    if (!username || !message) {
+      showError('Lütfen tüm alanları doldurun!');
+      return;
+    }
 
-      // Geri anasayfaya dön
-      document.getElementById('username').value = '';
-      document.getElementById('message').value = '';
-      showSection('topics');
-    } else {
-      alert("Lütfen tüm alanları doldurun.");
+    // Uzunluk kontrolü
+    if (username.length > 20) {
+      showError('Kullanıcı adı en fazla 20 karakter olabilir!');
+      return;
+    }
+
+    if (message.length > 500) {
+      showError('Mesaj en fazla 500 karakter olabilir!');
+      return;
+    }
+
+    try {
+      // Loading durumu göster
+      const submitBtn = document.querySelector('.button-submit');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = '📤 Gönderiliyor...';
+      submitBtn.disabled = true;
+
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          message: message
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Formu temizle
+        document.getElementById('username').value = '';
+        document.getElementById('message').value = '';
+        updateCharCount();
+        
+        // Mesajları yeniden yükle
+        await loadMessages();
+        
+        // Konular sayfasına geç
+        showSection('topics');
+        
+        showSuccess('Mesajınız başarıyla gönderildi!');
+      } else {
+        showError(data.error || 'Mesaj gönderilemedi!');
+      }
+    } catch (error) {
+      console.error('Mesaj gönderme hatası:', error);
+      showError('Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+    } finally {
+      // Loading durumunu kaldır
+      const submitBtn = document.querySelector('.button-submit');
+      submitBtn.textContent = '🚀 Mesajı Gönder';
+      submitBtn.disabled = false;
     }
   }
+
+  function escapeHtml(text) {
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+  }
+
+  function updateCharCount() {
+    const message = document.getElementById('message');
+    const charCount = document.getElementById('charCount');
+    const remaining = 500 - message.value.length;
+    charCount.textContent = remaining;
+    
+    if (remaining < 50) {
+      charCount.style.color = '#ff0000';
+    } else {
+      charCount.style.color = '#666';
+    }
+  }
+
+  // Karakter sayacını güncelle
+  document.getElementById('message').addEventListener('input', updateCharCount);
+
+  // Online kullanıcı sayısını rastgele güncelle
+  setInterval(() => {
+    const count = Math.floor(Math.random() * 5) + 1;
+    document.getElementById('onlineCount').textContent = count;
+  }, 30000);
 </script>
 
 </body>
