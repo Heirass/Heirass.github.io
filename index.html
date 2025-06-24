@@ -2,23 +2,113 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>XP Tarzı Web</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Hoş Geldiniz - Kişisel Web Sitem</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #c0c0c0, #ffffff);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #000080;
+    }
+
+    .container {
+      width: 800px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border: 2px solid #000080;
+      box-shadow: 5px 5px 10px #999;
+    }
+
+    .header {
+      background-color: #000080;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 1px 1px #333;
+    }
+
+    .menu {
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-bottom: 2px inset #aaa;
+    }
+
+    .menu a {
+      margin-right: 15px;
+      text-decoration: none;
+      color: #000080;
+      font-weight: bold;
+    }
+
+    .menu a:hover {
+      color: red;
+      text-decoration: underline;
+    }
+
+    .content {
+      padding: 20px;
+      background-color: #ffffff;
+    }
+
+    .button {
+      background-color: #dcdcdc;
+      border: 2px outset #fff;
+      padding: 6px 12px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    marquee {
+      background: yellow;
+      color: red;
+      font-weight: bold;
+      padding: 4px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      background-color: #eeeeee;
+      padding: 8px;
+      border-top: 2px inset #aaa;
+    }
+  </style>
 </head>
 <body>
-  <div class="window">
-    <div class="title-bar">
-      <span class="title">Bilgisayarım</span>
-      <div class="window-controls">
-        <button class="btn">_</button>
-        <button class="btn">☐</button>
-        <button class="btn close">X</button>
-      </div>
+
+  <div class="container">
+
+    <div class="header">
+      Emirhan'ın Web Sayfasına Hoş Geldiniz!
     </div>
+
+    <marquee behavior="scroll" direction="left">
+      Yeni içerikler çok yakında burada olacak! Takipte kalın!
+    </marquee>
+
+    <div class="menu">
+      <a href="#">Anasayfa</a>
+      <a href="#">Hakkımda</a>
+      <a href="#">Fotoğraflar</a>
+      <a href="#">Müzikler</a>
+      <a href="#">Ziyaretçi Defteri</a>
+    </div>
+
     <div class="content">
-      <p>Merhaba! Bu, XP tarzında bir pencere.</p>
-      <button class="xp-button">Tamam</button>
+      <h2>📌 Merhaba!</h2>
+      <p>Bu site 2003 ruhunu yaşatmak için tasarlandı. HTML, tablolar, marquee ve tabii ki bolca nostalji ile dolu!</p>
+      <p><button class="button" onclick="alert('Ziyaretçi defteri yakında!')">Ziyaretçi Defterine Yaz</button></p>
     </div>
+
+    <div class="footer">
+      &copy; 2005 Emirhan'ın Web Sitesi | <a href="#">İletişim</a>
+    </div>
+
   </div>
+
 </body>
 </html>
