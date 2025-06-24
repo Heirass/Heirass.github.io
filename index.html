@@ -2,18 +2,17 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Hoş Geldiniz - Kişisel Web Sitem</title>
+  <title>Retro Forum</title>
   <style>
     body {
       background: linear-gradient(to bottom, #c0c0c0, #ffffff);
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      color: #000080;
     }
 
     .container {
-      width: 800px;
+      width: 900px;
       margin: 0 auto;
       background-color: #ffffff;
       border: 2px solid #000080;
@@ -24,91 +23,90 @@
       background-color: #000080;
       color: white;
       padding: 10px;
-      text-align: center;
       font-size: 24px;
-      font-weight: bold;
-      text-shadow: 1px 1px #333;
+      text-align: center;
     }
 
     .menu {
       background-color: #f0f0f0;
       padding: 10px;
-      border-bottom: 2px inset #aaa;
+      text-align: center;
+      font-weight: bold;
     }
 
     .menu a {
-      margin-right: 15px;
-      text-decoration: none;
+      margin: 0 15px;
       color: #000080;
-      font-weight: bold;
+      text-decoration: none;
     }
 
     .menu a:hover {
       color: red;
-      text-decoration: underline;
     }
 
-    .content {
-      padding: 20px;
-      background-color: #ffffff;
+    .forum-table {
+      width: 100%;
+      border-collapse: collapse;
     }
 
-    .button {
+    .forum-table th,
+    .forum-table td {
+      padding: 10px;
+      border: 1px solid #999;
+    }
+
+    .forum-table th {
       background-color: #dcdcdc;
-      border: 2px outset #fff;
-      padding: 6px 12px;
-      font-weight: bold;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    marquee {
-      background: yellow;
-      color: red;
-      font-weight: bold;
-      padding: 4px;
     }
 
     .footer {
       text-align: center;
-      font-size: 12px;
       background-color: #eeeeee;
-      padding: 8px;
-      border-top: 2px inset #aaa;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    .button {
+      padding: 6px 12px;
+      background-color: #dcdcdc;
+      border: 2px outset #fff;
+      font-weight: bold;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
+<div class="container">
+  <div class="header">Retro Forum</div>
 
-    <div class="header">
-      Emirhan'ın Web Sayfasına Hoş Geldiniz!
-    </div>
-
-    <marquee behavior="scroll" direction="left">
-      Yeni içerikler çok yakında burada olacak! Takipte kalın!
-    </marquee>
-
-    <div class="menu">
-      <a href="#">Anasayfa</a>
-      <a href="#">Hakkımda</a>
-      <a href="#">Fotoğraflar</a>
-      <a href="#">Müzikler</a>
-      <a href="#">Ziyaretçi Defteri</a>
-    </div>
-
-    <div class="content">
-      <h2>📌 Merhaba!</h2>
-      <p>Bu site 2003 ruhunu yaşatmak için tasarlandı. HTML, tablolar, marquee ve tabii ki bolca nostalji ile dolu!</p>
-      <p><button class="button" onclick="alert('Ziyaretçi defteri yakında!')">Ziyaretçi Defterine Yaz</button></p>
-    </div>
-
-    <div class="footer">
-      &copy; 2005 Emirhan'ın Web Sitesi | <a href="#">İletişim</a>
-    </div>
-
+  <div class="menu">
+    <a href="index.html">Anasayfa</a>
+    <a href="new-topic.html">Yeni Konu Aç</a>
   </div>
+
+  <table class="forum-table">
+    <tr>
+      <th>Forum Başlığı</th>
+      <th>Konular</th>
+      <th>Son Mesaj</th>
+    </tr>
+    <tr>
+      <td><a href="forum-view.html">Genel Sohbet</a></td>
+      <td>25</td>
+      <td>Emirhan - 24.06.2025</td>
+    </tr>
+    <tr>
+      <td><a href="forum-view.html">Teknoloji</a></td>
+      <td>14</td>
+      <td>admin - 23.06.2025</td>
+    </tr>
+  </table>
+
+  <div class="footer">
+    &copy; 2025 Retro Forum - Tüm hakları saklıdır.
+  </div>
+</div>
 
 </body>
 </html>
