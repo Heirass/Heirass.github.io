@@ -10,31 +10,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-const API_URL = 'https://heirass.github.io/index.html';
+const API_URL = 'https://heirass.github.io/index.html'; // Note: Unused in this code
 
-// Your remaining code for handling GET, POST, etc.
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
 $messagesFile = 'forum_messages.json';
 
 // Dosya yoksa boş array ile oluştur
 if (!file_exists($messagesFile)) {
-    file_put_contents($messagesFile, json_encode([]));
+    if (!file_put_contents($messagesFile, json_encode([]), LOCK_EX)) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Mesaj dosyası oluşturulamadı']);
+        exit();
+    }
 }
 
 // Mesajları yükle
 function loadMessages() {
     global $messagesFile;
     $content = file_get_contents($messagesFile);
-    return json_decode($content, true) ?: [];
+    if ($content === false) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Mesaj dosyası okunamadı']);
+        exit();
+    }
+    $messages = json_decode($content, true);
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Mesaj dosyası geçersiz JSON formatında']);
+        exit();
+    }
+    return $messages ?: [];
 }
 
 // Mesajları kaydet
 function saveMessages($messages) {
     global $messagesFile;
-    return file_put_contents($messagesFile, json_encode($messages, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+    $result = file_put_contents($messagesFile, json_encode($messages, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), LOCK_EX);
+    if ($result === false) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Mesaj dosyasına yazılamadı']);
+        exit();
+    }
+    return true;
 }
 
 // Güvenlik: HTML karakterlerini temizle
@@ -90,13 +106,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         // Kaydet
-        if (saveMessages($messages)) {
-            http_response_code(201);
-            echo json_encode(['success' => true, 'message' => 'Mesaj başarıyla kaydedildi']);
-        } else {
-            http_response_code(500);
-            echo json_encode(['error' => 'Mesaj kaydedilemedi']);
-        }
+        saveMessages($messages);
+        http_response_code(201);
+        echo json_encode(['success' => true, 'message' => 'Mesaj başarıyla kaydedildi']);
     } else {
         http_response_code(400);
         echo json_encode(['error' => 'Gerekli alanlar eksik']);
@@ -104,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // GET isteği - Mesajları getir
-else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $messages = loadMessages();
     
     // Son N mesajı getir (opsiyonel limit parametresi)
@@ -116,9 +128,7 @@ else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         'messages' => $messages,
         'total' => count($messages)
     ]);
-}
-
-else {
+} else {
     http_response_code(405);
     echo json_encode(['error' => 'Sadece GET ve POST metodları desteklenir']);
 }
